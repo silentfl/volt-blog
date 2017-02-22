@@ -1,24 +1,25 @@
-# README
+## Usage
+* Rails 5
+* Postgres 9
+* Rspec 3
+* ActiveModelSerializers
+* Kaminari
+* DeviseTokenAuth
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Local install
+```
+git clone git@github.com:silentfl/volt-blog.git
+cd volt-blog
+bundle install
+rake db:create
+rake db:migrate
+HOST=localhost rails s
+```
 
-Things you may want to cover:
+## Endpoints
+1. Auth
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+2. Post
+  * create post
+  * get by id
+  * get posts by page and per_page

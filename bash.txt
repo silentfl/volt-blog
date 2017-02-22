@@ -1,0 +1,45 @@
+$ # email registration
+$ curl -X POST http://127.0.0.1:3000/auth -d 'email=user@example.com&password=password&password_confirmation=password&nickname1=user'
+> {"status":"success","data":{"id":5,"provider":"email","uid":"user@example.com",
+> "name":null,"nickname":"user","image":null,"email":"user@example.com",
+> "created_at":"2017-02-22T22:16:04.878Z",
+> "updated_at":"2017-02-22T22:16:04.878Z"}}
+$
+$ # confirm email
+$ curl http://localhost:3000/auth/confirmation\?config\=default\&confirmation_token\=RaSay4DLFvkoUnomiykS\&redirect_url\=localhost:3000
+> <html><body>You are being <a href="localhost://?account_confirmation_success=
+> true&amp;client_id=Zm2Go7NT5wzx1Jv2bADA4A&amp;config=default&amp;expiry=
+> 1489011679&amp;token=0aup83lnN9Sq29wO1LVzxw&amp;uid=user%40example.com">
+> redirected</a>.</body></html>
+$
+$ # get access token
+$ curl -X POST -v -H 'Content-Type: application/json' http://localhost:3000/auth/sign_in -d '{"email": "user@example.com", "password": "password" }'
+> * Hostname was NOT found in DNS cache
+> *   Trying 127.0.0.1...
+> * Connected to localhost (127.0.0.1) port 3000 (#0)
+> > POST /auth/sign_in HTTP/1.1
+> > User-Agent: curl/7.35.0
+> > Host: localhost:3000
+> > Accept: */*
+> > Content-Type: application/json
+> > Content-Length: 54
+> > 
+> * upload completely sent off: 54 out of 54 bytes
+> < HTTP/1.1 200 OK
+> < X-Frame-Options: SAMEORIGIN
+> < X-XSS-Protection: 1; mode=block
+> < X-Content-Type-Options: nosniff
+> < Content-Type: application/json; charset=utf-8
+> < access-token: TmprzKUdYyobwRPD4T-b_A
+> < token-type: Bearer
+> < client: 2D-FmpWDQWgqPdmYUbntUw
+> < expiry: 1489013056
+> < uid: user@example.com
+> < ETag: W/"ddbf82a96306e546eefede5cde775fb5"
+> < Cache-Control: max-age=0, private, must-revalidate
+> < X-Request-Id: e453bf02-928a-4ea2-a08f-78f392ed1fe7
+> < X-Runtime: 0.340933
+> < Transfer-Encoding: chunked
+> < 
+> * Connection #0 to host localhost left intact
+> {"data":{"id":5,"email":"user@example.com","provider":"email","nickname":"user","uid":"user@example.com","name":null,"image":null}}
