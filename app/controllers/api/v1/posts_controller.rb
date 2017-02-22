@@ -4,7 +4,7 @@ module Api::V1
       page = params[:page] || 1
       per_page = params[:per_page] || Kaminari.config[:default_per_page]
 
-      posts = Post.page(page).per(per_page)
+      posts = Post.order(published_at: :desc).page(page).per(per_page)
       total_page = Post.page(page).per(per_page).total_pages
       total_records = Post.all.size
       
