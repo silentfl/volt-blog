@@ -17,7 +17,7 @@ describe Api::V1::PostsController, type: :controller do
     it 'with paging' do
       get :index, params: { page: 2, per_page: 1 }
       json = JSON.parse(response.body)
-      expect(json[0]['title']).to eq(Post.last.title)
+      expect(json[0]['title']).to eq(Post.order(published_at: :desc).last.title)
     end
 
     it 'order' do
