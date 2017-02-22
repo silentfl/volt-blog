@@ -1,0 +1,7 @@
+class AddReferences < ActiveRecord::Migration[5.0]
+  def change
+    add_reference :posts, :user, index: true
+    add_reference :comments, :post, index: true
+    add_reference :comments, :user, index: true
+  end
+end
