@@ -7,10 +7,18 @@ describe Api::V1::PostsController, type: :controller do
     Post.create!(title: 'second post', body: 'body second post')
   end
 
-  it :index do
-    get :index
-    json = JSON.parse(response.body)
-    expect(json.size).to eq(2)
+  describe 'index' do
+    it 'with default paging' do
+      get :index
+      json = JSON.parse(response.body)
+      expect(json.size).to eq(2)
+    end
+
+    it 'with paging' do
+      get :index, params: { page: 2, per_page: 1 }
+      json = JSON.parse(response.body)
+      expect(json[0]['title']).to eq(Post.last.title)
+    end
   end
 
   it :create do

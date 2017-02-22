@@ -1,7 +1,15 @@
 module Api::V1
   class PostsController < ApiController
     def index
-      posts = Post.all
+      page = params[:page] || 1
+      per_page = params[:per_page] || Kaminari.config[:default_per_page]
+
+      posts = Post.page(page).per(per_page)
+      total_page = Post.page(page).per(per_page).total_pages
+      total_records = Post.all.size
+      
+      response.headers['X-Total-Pages'] = total_page
+      response.headers['X-Total-Records'] = total_records
 
       render json: posts
     end
