@@ -1,11 +1,14 @@
 require 'rails_helper'
 
 describe User, type: :model do
+  before(:all) { User.delete_all }
+
   subject do
     User.new(
       nickname: 'user',
       email: 'user@example.com',
-      password: '123'
+      password: 'password',
+      password_confirmation: 'password'
     )
   end
 
@@ -18,7 +21,7 @@ describe User, type: :model do
       subject.nickname = nil
       expect(subject).to_not be_valid
     end
-    
+
     it :email do
       subject.email = nil
       expect(subject).to_not be_valid
