@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170222190612) do
+ActiveRecord::Schema.define(version: 20170222193045) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20170222190612) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.index ["published_at"], name: "index_posts_on_published_at", using: :btree
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string   "nickname"
+    t.string   "email"
+    t.string   "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["nickname"], name: "index_users_on_nickname", using: :btree
   end
 
 end
