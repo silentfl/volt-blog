@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Post, type: :model do
-  subject { Post.new(title: 'title', body: 'body') }
+  subject { create(:post) }
 
   context :validation do
     it :success do

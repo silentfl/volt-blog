@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Comment, type: :model do
-  subject { Comment.new(body: 'body') }
+  subject { create(:comment) }
 
   context 'validation' do
     it :success do

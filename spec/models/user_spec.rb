@@ -1,16 +1,7 @@
 require 'rails_helper'
 
 describe User, type: :model do
-  before(:all) { User.delete_all }
-
-  subject do
-    User.new(
-      nickname: 'user',
-      email: 'user@example.com',
-      password: 'password',
-      password_confirmation: 'password'
-    )
-  end
+  subject { create(:user) }
 
   context :validation do
     it :success do
