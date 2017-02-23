@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+  body
+    h1
+      | Report from #{@start_date} to #{@end_date}
+    = if @data.empty?
+      p No records
+    = else
+      table
+        tr
+          th Nickname
+          th Email
+          th Posts
+          th Comments
+        = @data.each do |item|
+          tr
+            td= item[:nickname]
+            td= item[:email]
+            td= item[:posts]
+            td= item[:comments]
