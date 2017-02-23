@@ -8,4 +8,10 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.before(:suite) { DatabaseCleaner.clean_with(:truncation) }
+  config.before(:each) { DatabaseCleaner.strategy = :transaction }
+  config.before(:each, :js => true) { DatabaseCleaner.strategy = :truncation }
+  config.before(:each) { DatabaseCleaner.start }
+  config.after(:each) { DatabaseCleaner.clean }
 end
