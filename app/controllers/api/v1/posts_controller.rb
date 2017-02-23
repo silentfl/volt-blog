@@ -16,6 +16,7 @@ module Api::V1
 
     def create
       post = Post.create(create_params)
+      post.user = current_user
       post.published_at = Time.now unless post.published_at
       if post.save
         render json: post
