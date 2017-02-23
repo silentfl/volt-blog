@@ -1,25 +1,32 @@
-## Usage
-* Rails 5
-* Postgres 9
-* Rspec 3
-* ActiveModelSerializers
-* Kaminari
-* DeviseTokenAuth
+## Часть 1
 
-## Local install
-```
-git clone git@github.com:silentfl/volt-blog.git
-cd volt-blog
-bundle install
-rake db:create
-rake db:migrate
-HOST=localhost rails s
-```
+1.1 Модели
+  * Post
+  * User
+  * Comment
 
-## Endpoints
-1. Auth
+1.2 Эндпоинты
+  * Аутентификация на основе [DeviseTokenAuth](https://github.com/lynndylanhurley/devise_token_auth)
+  * POST /api/v1/posts.json
+  * GET  /api/v1/posts/:post_id.json
+  * GET  /api/v1/posts.json - пагинация на [Kaminari](https://github.com/kaminari/kaminari)
 
-2. Post
-  * create post
-  * get by id
-  * get posts by page and per_page
+1.3 Прочие требования
+  * Rails 5
+  * Postgres 9
+  * Rspec 3
+  * ActiveModelSerializers
+  * DeviseTokenAuth
+  * Покрытие кода тестами (частично, need fixes)
+
+## Часть 2
+2.1 Загрузка аватара
+  НЕ реализовано
+
+2.2 Reports
+  * POST /api/v1/reports/by_author.json (public)
+  * Если не указаны даты отчета - берется месяц
+  * Данные отчета НЕ по требованию
+  * БД заполнена тестовыми данными (faker)
+
+2.3 Heroku
