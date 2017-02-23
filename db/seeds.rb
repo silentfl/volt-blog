@@ -1,40 +1,26 @@
-john = User.create(
-  nickname: 'John',
-  password: 'password',
-  email: 'john@example.com'
-)
+10.times do
+  User.create(
+    nickname: Faker::Internet.user_name,
+    password: Faker::Internet.password(8),
+    email: Faker::Internet.email
+  )
+end
 
-bob = User.create(
-  nickname: 'Bob',
-  password: 'password',
-  email: 'bob@example.com'
-)
+users = User.all
 
-first_post = john.posts.create(
-  title: 'First post',
-  body: 'It is my first post'
-)
-
-second_post = john.posts.create(
-  title: 'Second post',
-  body: "I'm blogger =)",
-  user: john
-)
-
-Comment.create(
-  body: 'Nice',
-  post: first_post,
-  user: bob
-)
-
-Comment.create(
-  body: 'thx',
-  post: first_post,
-  user: john
-)
-
-Comment.create(
-  body: 'any comment?',
-  post: second_post,
-  user: john
-)
+users.each do |user|
+  rand(10).times do
+    post = user.posts.create(
+      title: Faker::Lorem.sentence,
+      body: Faker::Lorem.paragraph
+    )
+    
+    rand(20).times do
+      Comment.create(
+        body: Faker::Lorem.sentence,
+        post: post,
+        user: users.sample
+      )
+    end
+  end
+end
