@@ -2,32 +2,22 @@ require 'rails_helper'
 
 describe Api::V1::PostsController, type: :controller do
   before(:all) do
-    User.delete_all
-    user = User.create!(
-      email: 'user@example.com',
-      password: 'password',
-      password_confirmation: 'password',
-      nickname: 'user'
-    )
-    user.confirm
+    user = create(:user)
     @auth_headers = user.create_new_auth_token
-
-    Post.delete_all
-    Post.create!(title: 'first post', body: 'body first post', published_at: Time.now - 1.day)
-    Post.create!(title: 'second post', body: 'body second post', published_at: Time.now)
+    create_list(:post, 5)
   end
 
   describe 'index' do
     it 'with default paging' do
       get :index, params: @auth_headers
       json = JSON.parse(response.body)
-      expect(json.size).to eq(2)
+      expect(json.size).to eq([Post.all.size, Kaminari.config[:default_per_page]].min)
     end
 
     it 'with paging' do
-      get :index, params: { page: 2, per_page: 1 }.merge(@auth_headers)
+      get :index, params: { page: 2, per_page: 2 }.merge(@auth_headers)
       json = JSON.parse(response.body)
-      expect(json[0]['title']).to eq(Post.order(published_at: :desc).last.title)
+      expect(json[0]['title']).to eq(Post.order(published_at: :desc).offset(2).first.title)
     end
 
     it 'order' do

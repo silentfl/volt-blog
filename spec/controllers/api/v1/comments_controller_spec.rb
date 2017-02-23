@@ -2,20 +2,9 @@ require 'rails_helper'
 
 describe Api::V1::CommentsController, type: :controller do
   before(:all) do
-    User.delete_all
-    user = User.create!(
-      email: 'user@example.com',
-      password: 'password',
-      password_confirmation: 'password',
-      nickname: 'user'
-    )
-    user.confirm
+    user = create(:user)
     @auth_headers = user.create_new_auth_token
-
-    Comment.delete_all
-    Comment.create!(body: 'first comment')
-    Comment.create!(body: 'second comment')
-    Comment.create!(body: 'third comment')
+    create_list(:comment, 3)
   end
 
   it :index do
