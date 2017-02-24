@@ -17,7 +17,7 @@
   * Rspec 3
   * ActiveModelSerializers
   * DeviseTokenAuth
-  * Покрытие кода тестами (частично, need fixes)
+  * Покрытие кода тестами (97.21%)
 
 ## Часть 2
 2.1 Загрузка аватара
